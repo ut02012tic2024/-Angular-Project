@@ -1,0 +1,59 @@
+<div class="" *ngIf="productData">
+    <h3>{{productData.name}} Details</h3>
+    <div class="row">
+        <div class="row m-2">
+            <div class="col-5 m-2">
+                <div class="wrapper">
+                    <img src="{{productData.images[0]}}">
+                </div>
+                <div class="row">
+                    <div class="col-5 m-2" *ngFor="let itemImg of productData.images">
+                        <div class="wrapper2">
+                            <img src="{{itemImg}}">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-6">
+                <h4><b>{{productData.name}}</b></h4>
+                <div class="d-flex">
+                    <div *ngFor="let s of [].constructor(productData.rating)">
+                        <i class="fa-solid fa-star text-warning"></i>
+                    </div>
+                </div>
+                <p>
+                    Price <br>
+                    ${{productData.price}}
+                </p>
+                <span class="badge rounded-pill bg m-0"
+                    [ngClass]="productData.availableQty > 0 ? 'bg-success' : 'bg-danger'">
+                    {{productData.availableQty > 0 ? 'Instock' : 'Out Of Stock'}}
+                </span>
+                <h6 class="mt-2">Description</h6>
+                <ul>
+                    <li *ngFor="let desc of productData.description">
+                        {{desc}}
+                    </li>
+                </ul>
+                <div class="row">
+                    <div class="col-5">
+                        Frame Material
+                        <ng-select [items]="productData.materials" bindLabel="name" bindValue="id">
+                        </ng-select>
+                    </div>
+                    <div class="col-4">Color
+                        <ng-select [items]="productData.colors" bindLabel="name" bindValue="id">
+                        </ng-select>
+                    </div>
+                    <div class="col-3">Quantity
+                        <ng-select [items]="" bindLabel="name" bindValue="id">
+                        </ng-select>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary"><b>ADD TO CART</b></button>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,80 @@
+<nav class="navbar bg-body-tertiary">
+    <div class="container-fluid d-flex justify-content-between">
+        <div class="navbar-brand m-2 h1">Thanusikan</div>
+        <button class="border border-dark-subtle btn btn-tertiary position-relative rounded-2"
+            data-bs-target="#exampleModal3" data-bs-toggle="modal">
+            <div class="navbar-brand m-2 ">Add to Cart
+                <div class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                    id="cartItemsCount">
+                    {{currentCart.length}}
+                </div>
+                <i class="fa-solid fa-cart-shopping"></i>
+            </div>
+        </button>
+    </div>
+</nav>
+<app-product (product)="receiveProduct($event)"></app-product>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add to Cart Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div *ngIf="currentCart.length > 0">
+                    <div>
+                    </div>
+                    <div class="d-flex flex-column mb-3">
+                        <div class="p-2 row border border-dark-subtle m-1" *ngFor="let cartItem of currentCart">
+                            <div class="col-2">
+                                <div class="wrapper3">
+                                    <img src="{{cartItem.images[0]}}">
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                {{cartItem.name}}
+                            </div>
+                            Quantity
+                            <div class="col-3">
+                                <div class="row">
+                                    <span class="text-bg-danger rounded-5 col-2 ms-1"
+                                        (click)="reduceCount(cartItem)">-</span>
+                                    <p class="col-1"> {{cartItem.numberOfItems > 0 ?cartItem.numberOfItems : 1 }}</p>
+                                    <span class="text-bg-danger rounded-5 col-2 ms-1"
+                                        (click)="addCount(cartItem)">+</span>
+                                </div>
+                            </div>
+                            <div class="col-1">
+                                <i class="fa-solid fa-trash text-danger" (click)="removeItem(cartItem)"></i>
+                            </div>
+                            <div class="col-2">
+                                <div class="bg-primary text-light rounded-3 p-2 text-center">Total
+                                    {{cartItem.numberOfItems
+                                    * cartItem.price>0? cartItem.numberOfItems * cartItem.price : cartItem.price}}$
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="currentCart.length == 0" class="row">
+                    <div class="col-4"></div>
+                    <div class="col-4">
+                        <img src="images/Shopping bag-bro.png" width="200vh"class="">
+                        <h3 class="text-center">Empty</h3>
+
+                    </div>
+
+                    <div class="col-4"></div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" *ngIf="currentCart.length > 0" >CheckOut({{totalAmount}})</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" *ngIf="currentCart.length == 0">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
